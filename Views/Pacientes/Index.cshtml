@@ -4,10 +4,10 @@
     ViewData["Title"] = "Index";
 }
 
-<h1>Index</h1>
+<h1>Pacientes</h1>
 
 <p>
-    <a asp-action="Create">Create New</a>
+    <a asp-action="Create"><button class="btn btn-primary">Nuevo</button></a>
 </p>
 <table class="table">
     <thead>
@@ -42,12 +42,12 @@
             <th>
                 @Html.DisplayNameFor(model => model.Dieta)
             </th>
-            <th>
+            @*<th>
                 @Html.DisplayNameFor(model => model.PesoEstatura)
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.Estado)
-            </th>
+            </th>*@
             <th></th>
         </tr>
     </thead>
@@ -84,16 +84,16 @@
             <td>
                 @Html.DisplayFor(modelItem => item.Dieta)
             </td>
-            <td>
+            @*<td>
                 @Html.DisplayFor(modelItem => item.PesoEstatura)
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.Estado)
-            </td>
+            </td>*@
             <td>
-                <a asp-action="Edit" asp-route-id="@item.Documento">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.Documento">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.Documento">Delete</a>
+                <a asp-action="Edit" asp-route-id="@item.Documento">Editar</a> |
+                <a asp-action="Details" asp-route-id="@item.Documento">Detalles</a> |
+                <a asp-action="Delete" asp-route-id="@item.Documento">Eliminar</a>
             </td>
         </tr>
 }
