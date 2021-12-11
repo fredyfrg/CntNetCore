@@ -27,10 +27,10 @@ namespace CntNetCore.Models
         public int Peso { get; set; }
         [Required(ErrorMessage = "Campo Requerido")]
         public int Estatura { get; set; }
-        [StringLength(1)]
+        [StringLength(2)]
         public String Fumador { get; set; }
         public int Añosfumador { get; set; }
-        [StringLength(1)]
+        [StringLength(2)]
         public String Dieta { get; set; }
         public int PesoEstatura { get; set; }
         [StringLength(10)]
