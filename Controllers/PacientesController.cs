@@ -54,7 +54,7 @@ namespace CntNetCore.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Documento,Nombres,Apellidos,Edad,Direccion,Sexo,Peso,Estatura,Fumador,Añosfumador,Dieta,PesoEstatura,Estado")] Pacientes pacientes)
+        public async Task<IActionResult> Create([Bind("Documento,Nombres,Apellidos,Edad,Direccion,Sexo,Peso,Estatura,Fumador,Añosfumador,Dieta,PesoEstatura,Estado,Riesgo,Prioridad")] Pacientes pacientes)
         {
             if (ModelState.IsValid)
             {
@@ -86,7 +86,7 @@ namespace CntNetCore.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(string id, [Bind("Documento,Nombres,Apellidos,Edad,Direccion,Sexo,Peso,Estatura,Fumador,Añosfumador,Dieta,PesoEstatura,Estado")] Pacientes pacientes)
+        public async Task<IActionResult> Edit(string id, [Bind("Documento,Nombres,Apellidos,Edad,Direccion,Sexo,Peso,Estatura,Fumador,Añosfumador,Dieta,PesoEstatura,Estado,Riesgo,Prioridad")] Pacientes pacientes)
         {
             if (id != pacientes.Documento)
             {

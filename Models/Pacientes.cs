@@ -35,5 +35,7 @@ namespace CntNetCore.Models
         public int PesoEstatura { get; set; }
         [StringLength(10)]
         public String Estado { get; set; }
+        public int Riesgo { get; set; }
+        public int Prioridad { get; set; }
     }
 }

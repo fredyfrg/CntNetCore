@@ -29,7 +29,7 @@
             </div>
             <div class="form-group">
                 <label asp-for="Edad" class="control-label"></label>
-                <input asp-for="Edad" class="form-control" />
+                <input asp-for="Edad" class="form-control" id="Edad"/>
                 <span asp-validation-for="Edad" class="text-danger"></span>
             </div>
             <div class="form-group">
@@ -39,7 +39,7 @@
             </div>
             <div class="form-group">
                 <label asp-for="Sexo" class="control-label"></label>
-                <select asp-for="Sexo" class="form-control" name="Sexo" >
+                <select asp-for="Sexo" class="form-control" name="Sexo">
                     <option value='M'>M</option>
                     <option value='F'>F</option>
                 </select>
@@ -48,12 +48,12 @@
             </div>
             <div class="form-group">
                 <label asp-for="Peso" class="control-label"></label>
-                <input asp-for="Peso" class="form-control" id="Peso"/>
+                <input asp-for="Peso" class="form-control" id="Peso" />
                 <span asp-validation-for="Peso" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="Estatura" class="control-label"></label>
-                <input asp-for="Estatura" class="form-control" id="Estatura" onchange='calculaPesoEstatura();'/>
+                <input asp-for="Estatura" class="form-control" id="Estatura" onchange='calculaPesoEstatura();' />
                 <span asp-validation-for="Estatura" class="text-danger"></span>
             </div>
             <div class="form-group">
@@ -66,18 +66,21 @@
                 <span asp-validation-for="Fumador" class="text-danger"></span>
             </div>
             <div class="form-group" style="display: none" id="sifuma">
-                <label asp-for="Añosfumador" class="control-label" ></label>
-                <input asp-for="Añosfumador" class="form-control" id="nañosfumador" value="0"/>
+                <label asp-for="Añosfumador" class="control-label"></label>
+                <input asp-for="Añosfumador" class="form-control" id="nañosfumador" value="0" />
                 <span asp-validation-for="Añosfumador" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="Dieta" class="control-label"></label>
-                <input asp-for="Dieta" class="form-control" />
+                <select asp-for="Dieta" class="form-control" id='Dieta' name="Dieta">
+                    <option value='NO'>NO</option>
+                    <option value='SI'>SI</option>
+                </select>
                 <span asp-validation-for="Dieta" class="text-danger"></span>
             </div>
             <div class="form-group" style="display: none">
                 <label asp-for="PesoEstatura" class="control-label"></label>
-                <input asp-for="PesoEstatura" class="form-control" id="PesoEstatura"/>
+                <input asp-for="PesoEstatura" class="form-control" id="PesoEstatura" />
                 <span asp-validation-for="PesoEstatura" class="text-danger"></span>
             </div>
             <div class="form-group" style="display: none">
@@ -86,7 +89,17 @@
                 <span asp-validation-for="Estado" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <input type="submit" value="Crear" class="btn btn-primary" />
+                <label asp-for="Riesgo" class="control-label"></label>
+                <input asp-for="Riesgo" class="form-control" value="0" readonly />
+                <span asp-validation-for="Riesgo" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Prioridad" class="control-label"></label>
+                <input asp-for="Prioridad" class="form-control" value="0" readonly />
+                <span asp-validation-for="Prioridad" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Crear" class="btn btn-primary" onclick='calculaPrioridad'/>
             </div>
         </form>
     </div>
@@ -127,7 +140,6 @@
             document.getElementById('PesoEstatura').value = "0";
         } else if ((pesoestatura <= (0.50))) {
             document.getElementById('PesoEstatura').value = "1";
-
         } else if ((pesoestatura <= (0.75))) {
             document.getElementById('PesoEstatura').value = "2";
         } else if ((pesoestatura <= (1))) {
@@ -136,6 +148,35 @@
             document.getElementById('PesoEstatura').value = "4";
         }
     }
+
+    function calculaPrioridad() {
+        var pesoestatura = document.getElementById('PesoEstatura').value;
+        var edad = document.getElementById('Edad').value;
+        var fumador = document.getElementById('Fumador').value; nañosfumador
+        var añosfumador = document.getElementById('nañosfumador').value;
+        var dieta = document.getElementById('Dieta').value;
+        var prioridad;
+        if (edad <= (5)) {
+            prioridad = pesoestatura + 3;
+        } else if ((edad <= (12))) {
+            prioridad = pesoestatura + 2;
+        } else if ((edad<= (15))) {
+            prioridad = pesoestatura + 1;
+        } else if ((edad <= (40))) {
+            if (fumador == "SI") {
+                prioridad = añosfumador / 4 + 2;
+            } else {
+                prioridad = 2;
+            }
+        } else {
+            if ((dieta == "SI") && (edad >= 60 && edad <= 100)) {
+                prioridad = edad / 20 + 4;
+            } else {
+                prioridad = edad / 30 + 3;
+            }
+        }
+    }
+
 
 </script>
 
