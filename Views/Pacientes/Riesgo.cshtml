@@ -1,14 +1,12 @@
 ﻿@model IEnumerable<CntNetCore.Models.Pacientes>
 
 @{
-    ViewData["Title"] = "Index";
+    ViewData["Title"] = "Riesgo";
 }
 
-<h1>Pacientes</h1>
+<h2>Prioridad Pacientes</h2>
 
-<p>
-    <a asp-action="Create"><button class="btn btn-primary">Nuevo</button></a>
-</p>
+
 <table class="table">
     <thead>
         <tr>
@@ -42,12 +40,9 @@
             <th>
                 @Html.DisplayNameFor(model => model.Dieta)
             </th>
-            @*<th>
-                @Html.DisplayNameFor(model => model.PesoEstatura)
-            </th>
             <th>
-                @Html.DisplayNameFor(model => model.Estado)
-            </th>*@
+                @Html.DisplayNameFor(model => model.Riesgo)
+            </th>
             <th></th>
         </tr>
     </thead>
@@ -84,18 +79,15 @@
             <td>
                 @Html.DisplayFor(modelItem => item.Dieta)
             </td>
-            @*<td>
-                @Html.DisplayFor(modelItem => item.PesoEstatura)
-            </td>
             <td>
-                @Html.DisplayFor(modelItem => item.Estado)
-            </td>*@
+                @Html.DisplayFor(modelItem => item.Riesgo)
+            </td>
         <td>
-            <a asp-action="Edit" asp-route-id="@item.Documento"><button class="btn btn-secondary">Editar</button></a> |
-            <a asp-action="Details" asp-route-id="@item.Documento"><button class="btn btn-info">Detalles</button></a> |
-            @*<a asp-action="Delete" asp-route-id="@item.Documento"><button class="btn btn-danger">Eliminar</button></a>*@
+            <a asp-action="Atender" asp-route-id="@item.Documento"><button class="btn btn-success">Atender</button></a>
         </td>
         </tr>
 }
+
+
     </tbody>
 </table>

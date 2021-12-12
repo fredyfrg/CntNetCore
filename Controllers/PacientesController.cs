@@ -25,6 +25,72 @@ namespace CntNetCore.Controllers
             return View(await _context.Pacientes.ToListAsync());
         }
 
+        public async Task<IActionResult> Prioridad()
+        {
+            string query = "SELECT * FROM Pacientes WHERE (Estado ='Pendiente') ORDER BY Prioridad DESC";
+
+            return View(await _context.Pacientes.FromSqlRaw(query).ToListAsync());
+        }
+        public async Task<IActionResult> Riesgo()
+        {
+            string query = "SELECT * FROM Pacientes WHERE (Estado ='Pendiente') ORDER BY Riesgo DESC";
+
+            return View(await _context.Pacientes.FromSqlRaw(query).ToListAsync());
+        }
+        public async Task<IActionResult> Atender(string id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
+
+            var pacientes = await _context.Pacientes.FindAsync(id);
+            if (pacientes == null)
+            {
+                return NotFound();
+            }
+            return View();
+        }
+
+        // POST: Pacientes/Edit/5
+        // To protect from overposting attacks, enable the specific properties you want to bind to.
+        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Atender(string id, [Bind("Documento,Estado")] Pacientes pacientes)
+        {
+            if (id != pacientes.Documento)
+            {
+                return NotFound();
+            }
+
+            if (ModelState.IsValid)
+            {
+                try
+                {
+                    _context.Update(pacientes);
+                    await _context.SaveChangesAsync();
+                }
+                catch (DbUpdateConcurrencyException)
+                {
+                    if (!PacientesExists(pacientes.Documento))
+                    {
+                        return NotFound();
+                    }
+                    else
+                    {
+                        throw;
+                    }
+                }
+                return RedirectToAction(nameof(Index));
+            }
+            
+
+            return View();
+        }
+
+
+
         // GET: Pacientes/Details/5
         public async Task<IActionResult> Details(string id)
         {
@@ -149,5 +215,7 @@ namespace CntNetCore.Controllers
         {
             return _context.Pacientes.Any(e => e.Documento == id);
         }
+
+        
     }
 }

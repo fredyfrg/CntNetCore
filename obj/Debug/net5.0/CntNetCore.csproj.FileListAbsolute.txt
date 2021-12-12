@@ -433,3 +433,5 @@ C:\Users\FRG\source\repos\CntNetCore\obj\Debug\net5.0\Razor\Views\Pacientes\Dele
 C:\Users\FRG\source\repos\CntNetCore\obj\Debug\net5.0\Razor\Views\Pacientes\Details.cshtml.g.cs
 C:\Users\FRG\source\repos\CntNetCore\obj\Debug\net5.0\Razor\Views\Pacientes\Edit.cshtml.g.cs
 C:\Users\FRG\source\repos\CntNetCore\obj\Debug\net5.0\Razor\Views\Pacientes\Index.cshtml.g.cs
+C:\Users\FRG\source\repos\CntNetCore\obj\Debug\net5.0\Razor\Views\Pacientes\Prioridad.cshtml.g.cs
+C:\Users\FRG\source\repos\CntNetCore\obj\Debug\net5.0\Razor\Views\Pacientes\Riesgo.cshtml.g.cs

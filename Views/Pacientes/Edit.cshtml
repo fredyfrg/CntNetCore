@@ -110,6 +110,85 @@
     <a asp-action="Index">Regresar</a>
 </div>
 
+<script type="text/javascript">
+
+    function cambioOpciones() {
+        var element = document.getElementById('sifuma');
+        var showId = document.getElementById('Fumador').value;
+        if (showId == "SI") {
+            element.style.display = 'block';
+            document.getElementById('nañosfumador').value = "";
+        }
+        else {
+            element.style.display = 'none';
+            document.getElementById('nañosfumador').value = "0";
+        }
+
+    }
+
+
+    function calculaPesoEstatura() {
+        var peso = document.getElementById('Peso').value;
+        var estatura = document.getElementById('Estatura').value;
+        var pesoestatura = (peso / estatura);
+        if (pesoestatura <= (0.25)) {
+            document.getElementById('PesoEstatura').value = "0";
+        } else if ((pesoestatura <= (0.50))) {
+            document.getElementById('PesoEstatura').value = "1";
+        } else if ((pesoestatura <= (0.75))) {
+            document.getElementById('PesoEstatura').value = "2";
+        } else if ((pesoestatura <= (1))) {
+            document.getElementById('PesoEstatura').value = "3";
+        } else {
+            document.getElementById('PesoEstatura').value = "4";
+        }
+    }
+
+    function calculaPrioridad() {
+        var pesoestatura = document.getElementById('PesoEstatura').value;
+        var edad = document.getElementById('Edad').value;
+        var fumador = document.getElementById('Fumador').value;
+        var añosfumador = document.getElementById('nañosfumador').value;
+        var dieta = document.getElementById('Dieta').value;
+        var prioridad;
+        if (edad <= (5)) {
+            prioridad = Math.floor(pesoestatura) + 3;
+        } else if ((edad <= (12))) {
+            prioridad = Math.floor(pesoestatura) + 2;
+        } else if ((edad <= (15))) {
+            prioridad = Math.floor(pesoestatura) + 1;
+        } else if ((edad <= (40))) {
+            if (fumador == "SI") {
+                prioridad = parseFloat(añosfumador) / 4 + 2;
+            } else {
+                prioridad = 2;
+            }
+        } else {
+            if ((dieta == "SI") && (edad >= 60 && edad <= 100)) {
+                prioridad = Math.floor(edad) / 20 + 4;
+            } else {
+                prioridad = Math.floor(edad) / 30 + 3;
+            }
+        }
+        document.getElementById('Prioridad').value = prioridad;
+        calculaRiesgo();
+    }
+
+    function calculaRiesgo() {
+        var prioridad = document.getElementById('Prioridad').value;
+        var edad = document.getElementById('Edad').value;
+        var riesgo;
+        if (edad <= (40)) {
+            riesgo = edad * prioridad / 100;
+        } else {
+            riesgo = edad * prioridad / 100 + 5.3;
+        }
+        document.getElementById('Riesgo').value = riesgo;
+    }
+
+
+</script>
+
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
 }
