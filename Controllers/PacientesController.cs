@@ -43,13 +43,13 @@ namespace CntNetCore.Controllers
             {
                 return NotFound();
             }
+            await _context.Database.ExecuteSqlInterpolatedAsync(
+                $"UPDATE Pacientes set Estado='Atendido' where Documento={id} ");
 
-            var pacientes = await _context.Pacientes.FindAsync(id);
-            if (pacientes == null)
-            {
-                return NotFound();
-            }
-            return View();
+            string query = "SELECT * FROM Pacientes WHERE (Estado ='Pendiente') ORDER BY Prioridad DESC";
+
+            return View(await _context.Pacientes.FromSqlRaw(query).ToListAsync());
+
         }
 
         // POST: Pacientes/Edit/5
@@ -59,37 +59,45 @@ namespace CntNetCore.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Atender(string id, [Bind("Documento,Estado")] Pacientes pacientes)
         {
-            if (id != pacientes.Documento)
+
+            await _context.Database.ExecuteSqlInterpolatedAsync(
+                $"UPDATE Pacientes set Estado='Atendido' where Documento={id} ");
+
+            string query = "SELECT * FROM Pacientes WHERE (Estado ='Pendiente') ORDER BY Prioridad DESC";
+
+            return View(await _context.Pacientes.FromSqlRaw(query).ToListAsync());
+        }
+
+        public async Task<IActionResult> AtenderR(string id)
+        {
+            if (id == null)
             {
                 return NotFound();
             }
+            await _context.Database.ExecuteSqlInterpolatedAsync(
+                $"UPDATE Pacientes set Estado='Atendido' where Documento={id} ");
 
-            if (ModelState.IsValid)
-            {
-                try
-                {
-                    _context.Update(pacientes);
-                    await _context.SaveChangesAsync();
-                }
-                catch (DbUpdateConcurrencyException)
-                {
-                    if (!PacientesExists(pacientes.Documento))
-                    {
-                        return NotFound();
-                    }
-                    else
-                    {
-                        throw;
-                    }
-                }
-                return RedirectToAction(nameof(Index));
-            }
-            
+            string query = "SELECT * FROM Pacientes WHERE (Estado ='Pendiente') ORDER BY Riesgo DESC";
 
-            return View();
+            return View(await _context.Pacientes.FromSqlRaw(query).ToListAsync());
+
         }
 
+        // POST: Pacientes/Edit/5
+        // To protect from overposting attacks, enable the specific properties you want to bind to.
+        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> AtenderR(string id, [Bind("Documento,Estado")] Pacientes pacientes)
+        {
 
+            await _context.Database.ExecuteSqlInterpolatedAsync(
+                $"UPDATE Pacientes set Estado='Atendido' where Documento={id} ");
+
+            string query = "SELECT * FROM Pacientes WHERE (Estado ='Pendiente') ORDER BY Riesgo DESC";
+
+            return View(await _context.Pacientes.FromSqlRaw(query).ToListAsync());
+        }
 
         // GET: Pacientes/Details/5
         public async Task<IActionResult> Details(string id)
